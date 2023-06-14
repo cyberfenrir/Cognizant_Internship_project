@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace RxMed.Models
 {
@@ -9,6 +10,7 @@ namespace RxMed.Models
 
         public string? role_name { get; set; }
 
+        [JsonIgnore]
         public List<User>? Users { get; set; }
     }
 }

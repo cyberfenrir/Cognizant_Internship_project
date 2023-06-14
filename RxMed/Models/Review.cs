@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RxMed.Models
@@ -18,8 +19,11 @@ namespace RxMed.Models
 
         public string? description { get; set; }
 
+
+        [JsonIgnore]
         public Medicine? Medicine { get; set; }
 
+        [JsonIgnore]
         public User? User { get; set; }
     }
 }

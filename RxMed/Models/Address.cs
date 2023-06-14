@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace RxMed.Models
 {
@@ -20,7 +21,9 @@ namespace RxMed.Models
         public string? city { get; set; }
 
         public string? country { get; set; }
-
+        
+        
+        [JsonIgnore]
         public User? User { get; set; }
     }
 }

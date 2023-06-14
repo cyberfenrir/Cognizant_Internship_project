@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace RxMed.Models
 {
@@ -20,8 +21,10 @@ namespace RxMed.Models
 
         public int subtotal { get; set; }
 
+        [JsonIgnore]
         public Order? Order { get; set; }
 
+        [JsonIgnore]
         public Medicine? Medicine { get; set; }
     }
 }

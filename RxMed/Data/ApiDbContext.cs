@@ -22,7 +22,7 @@ namespace RxMed.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=LAPTOP-M3NLFMCA\SQLEXPRESS;Database = RxMed;Trusted_Connection=True;Encrypt=False;");
+            base.OnConfiguring(optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database = RxMed;Trusted_Connection=True;Encrypt=False;"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

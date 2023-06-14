@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
+using System.Text.Json.Serialization;
 
 namespace RxMed.Models
 {
@@ -27,8 +28,10 @@ namespace RxMed.Models
 
         public int total { get; set; }
 
+        [JsonIgnore]
         public User? User { get; set; }
 
+        [JsonIgnore]
         public Address? Address { get; set; }
 
         public List<OrderDetail>? OrderDetails { get; set; }

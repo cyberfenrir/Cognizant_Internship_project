@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace RxMed.Models
 {
@@ -25,7 +26,7 @@ namespace RxMed.Models
         public string? password { get; set; }
 
         [ForeignKey("Role")]
-        public int role_id { get; set; }
+        public int role_id { get; set; } = 2;
 
         public List<Address>? Addresses { get; set; }
 
@@ -35,6 +36,7 @@ namespace RxMed.Models
 
         public List<Review>? Reviews { get; set; }
 
+        [JsonIgnore]
         public Role? Role { get; set; }
     }
 
