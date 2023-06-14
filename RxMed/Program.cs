@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using RxMed.Data;
+using RxMed.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
