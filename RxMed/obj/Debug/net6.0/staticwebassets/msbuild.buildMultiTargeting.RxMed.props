@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\RxMed.props" />
+</Project>
