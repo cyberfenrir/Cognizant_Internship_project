@@ -18,15 +18,15 @@ namespace RxMed.Models
 
         public DateTime order_date { get; set; }
 
-        public string? is_delivered { get; set; }
+        public bool is_delivered { get; set; } = false;
 
-        public string? is_ordered { get; set; }
+        public bool is_ordered { get; set; } = false;
 
-        public string? prescription { get; set; }
+        //public string? prescription { get; set; }
 
         public DateTime? shipping_date { get; set; }
 
-        public int total { get; set; }
+        public int total { get; set; } = 0;
 
         [JsonIgnore]
         public User? User { get; set; }
