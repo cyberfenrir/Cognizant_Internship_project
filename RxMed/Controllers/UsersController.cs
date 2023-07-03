@@ -210,7 +210,7 @@ namespace RxMed.Controllers
 
         [HttpPost("[action]")]
         //https://localhost:7197/api/users/login
-        public IActionResult Login([FromBody] User user)
+        public IActionResult Login( User user)
         {
             var currentUser = _dbContext.Users.FirstOrDefault(x => x.email == user.email && x.password == user.password);
 
