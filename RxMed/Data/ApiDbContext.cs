@@ -22,7 +22,7 @@ namespace RxMed.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database = RxMed;Trusted_Connection=True;Encrypt=False;"));
+            base.OnConfiguring(optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database = RxMedv3;Trusted_Connection=True;Encrypt=False;"));
             
             //base.OnConfiguring(optionsBuilder.UseSqlServer(@"Server=LAPTOP-M3NLFMCA\SQLEXPRESS;Database = RxMed;Trusted_Connection=True;Encrypt=False;"));
         }
@@ -90,6 +90,13 @@ namespace RxMed.Data
                 .HasOne(a => a.User)
                 .WithMany(u => u.Addresses)
                 .HasForeignKey(a => a.user_id);
+
+            //10th relation
+            modelBuilder.Entity<Address>()
+               .HasOne(a => a.Order)
+               .WithOne(b => b.Address)
+               .HasForeignKey<Order>(c => c.order_id).IsRequired();
+            base.OnModelCreating(modelBuilder);
         }
 
     }

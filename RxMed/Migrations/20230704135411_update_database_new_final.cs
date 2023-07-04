@@ -5,7 +5,7 @@
 namespace RxMed.Migrations
 {
     /// <inheritdoc />
-    public partial class Json_Ignore_solution : Migration
+    public partial class update_database_new_final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

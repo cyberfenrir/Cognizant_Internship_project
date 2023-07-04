@@ -10865,11 +10865,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\2270332\\OneDrive - Cognizant\\Desktop\\backend\\v3.0\\Cognizant_Internship_project\\RxMed\\RxMed.csproj",
+      "projectUniqueName": "C:\\Users\\2270332\\OneDrive - Cognizant\\Desktop\\backend\\v4.0\\Cognizant_Internship_project\\RxMed\\RxMed.csproj",
       "projectName": "RxMed",
-      "projectPath": "C:\\Users\\2270332\\OneDrive - Cognizant\\Desktop\\backend\\v3.0\\Cognizant_Internship_project\\RxMed\\RxMed.csproj",
+      "projectPath": "C:\\Users\\2270332\\OneDrive - Cognizant\\Desktop\\backend\\v4.0\\Cognizant_Internship_project\\RxMed\\RxMed.csproj",
       "packagesPath": "C:\\Users\\2270332\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\2270332\\OneDrive - Cognizant\\Desktop\\backend\\v3.0\\Cognizant_Internship_project\\RxMed\\obj\\",
+      "outputPath": "C:\\Users\\2270332\\OneDrive - Cognizant\\Desktop\\backend\\v4.0\\Cognizant_Internship_project\\RxMed\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\2270332\\AppData\\Roaming\\NuGet\\NuGet.Config",

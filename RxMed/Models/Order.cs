@@ -18,15 +18,31 @@ namespace RxMed.Models
 
         public DateTime order_date { get; set; }
 
-        public bool is_delivered { get; set; } = false;
-
-        public bool is_ordered { get; set; } = false;
-
-        //public string? prescription { get; set; }
 
         public DateTime? shipping_date { get; set; }
 
-        public int total { get; set; } = 0;
+        [MaxLength(200)]
+        public string PaymentMethod { get; set; }
+
+        [Column(TypeName = "decimal(7, 2)")]
+        public decimal? TaxPrice { get; set; }
+
+        [Column(TypeName = "decimal(7, 2)")]
+        public decimal? ShippingPrice { get; set; }
+
+        [Column(TypeName = "decimal(7, 2)")]
+        public decimal? TotalPrice { get; set; }
+
+        public bool IsPaid { get; set; }
+
+        public DateTime? PaidAt { get; set; }
+
+        public bool IsDelivered { get; set; }
+
+        public DateTime? DeliveredAt { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; }
 
         [JsonIgnore]
         public User? User { get; set; }

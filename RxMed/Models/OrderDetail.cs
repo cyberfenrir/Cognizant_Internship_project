@@ -24,6 +24,8 @@ namespace RxMed.Models
         [JsonIgnore]
         public Order? Order { get; set; }
 
+        public string Image { get; set; }
+
         [JsonIgnore]
         public Medicine? Medicine { get; set; }
     }

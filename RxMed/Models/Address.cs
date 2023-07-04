@@ -21,9 +21,16 @@ namespace RxMed.Models
         public string? city { get; set; }
 
         public string? country { get; set; }
+
+
+        [ForeignKey("Order")]
+
+        public int order_id { get; set; }
         
         
         [JsonIgnore]
         public User? User { get; set; }
+
+        public Order? Order { get; set; }
     }
 }

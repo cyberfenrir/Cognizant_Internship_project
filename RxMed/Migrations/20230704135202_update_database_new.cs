@@ -6,29 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RxMed.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class update_database_new : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    address_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    user_id = table.Column<int>(type: "int", nullable: false),
-                    address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    postal = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    state = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    city = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    country = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.address_id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Medicines",
                 columns: table => new
@@ -70,7 +52,6 @@ namespace RxMed.Migrations
                 {
                     user_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    default_address_id = table.Column<int>(type: "int", nullable: false),
                     username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     first_name = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -82,12 +63,6 @@ namespace RxMed.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.user_id);
                     table.ForeignKey(
-                        name: "FK_Users_Addresses_default_address_id",
-                        column: x => x.default_address_id,
-                        principalTable: "Addresses",
-                        principalColumn: "address_id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Users_Roles_role_id",
                         column: x => x.role_id,
                         principalTable: "Roles",
@@ -96,31 +71,24 @@ namespace RxMed.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Addresses",
                 columns: table => new
                 {
-                    order_id = table.Column<int>(type: "int", nullable: false)
+                    address_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     user_id = table.Column<int>(type: "int", nullable: false),
-                    address_id = table.Column<int>(type: "int", nullable: false),
-                    order_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    is_delivered = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    is_ordered = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    prescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    shipping_date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    total = table.Column<int>(type: "int", nullable: false)
+                    address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    postal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    state = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    city = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    order_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.order_id);
+                    table.PrimaryKey("PK_Addresses", x => x.address_id);
                     table.ForeignKey(
-                        name: "FK_Orders_Addresses_address_id",
-                        column: x => x.address_id,
-                        principalTable: "Addresses",
-                        principalColumn: "address_id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Users_user_id",
+                        name: "FK_Addresses_Users_user_id",
                         column: x => x.user_id,
                         principalTable: "Users",
                         principalColumn: "user_id",
@@ -156,6 +124,42 @@ namespace RxMed.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    order_id = table.Column<int>(type: "int", nullable: false),
+                    user_id = table.Column<int>(type: "int", nullable: false),
+                    address_id = table.Column<int>(type: "int", nullable: false),
+                    order_date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    shipping_date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PaymentMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    TaxPrice = table.Column<decimal>(type: "decimal(7,2)", nullable: true),
+                    ShippingPrice = table.Column<decimal>(type: "decimal(7,2)", nullable: true),
+                    TotalPrice = table.Column<decimal>(type: "decimal(7,2)", nullable: true),
+                    IsPaid = table.Column<bool>(type: "bit", nullable: false),
+                    PaidAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDelivered = table.Column<bool>(type: "bit", nullable: false),
+                    DeliveredAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.order_id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Addresses_order_id",
+                        column: x => x.order_id,
+                        principalTable: "Addresses",
+                        principalColumn: "address_id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "Users",
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderDetails",
                 columns: table => new
                 {
@@ -165,7 +169,8 @@ namespace RxMed.Migrations
                     med_id = table.Column<int>(type: "int", nullable: false),
                     med_qty = table.Column<int>(type: "int", nullable: false),
                     med_price = table.Column<int>(type: "int", nullable: false),
-                    subtotal = table.Column<int>(type: "int", nullable: false)
+                    subtotal = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -185,6 +190,11 @@ namespace RxMed.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Addresses_user_id",
+                table: "Addresses",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_med_id",
                 table: "OrderDetails",
                 column: "med_id");
@@ -193,11 +203,6 @@ namespace RxMed.Migrations
                 name: "IX_OrderDetails_order_id",
                 table: "OrderDetails",
                 column: "order_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_address_id",
-                table: "Orders",
-                column: "address_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_user_id",
@@ -213,12 +218,6 @@ namespace RxMed.Migrations
                 name: "IX_Reviews_user_id",
                 table: "Reviews",
                 column: "user_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_default_address_id",
-                table: "Users",
-                column: "default_address_id",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_role_id",
@@ -242,10 +241,10 @@ namespace RxMed.Migrations
                 name: "Medicines");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Roles");

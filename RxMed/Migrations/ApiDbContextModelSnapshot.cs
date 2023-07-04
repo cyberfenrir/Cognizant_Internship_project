@@ -39,6 +39,9 @@ namespace RxMed.Migrations
                     b.Property<string>("country")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("order_id")
+                        .HasColumnType("int");
+
                     b.Property<string>("postal")
                         .HasColumnType("nvarchar(max)");
 
@@ -101,19 +104,40 @@ namespace RxMed.Migrations
             modelBuilder.Entity("RxMed.Models.Order", b =>
                 {
                     b.Property<int>("order_id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("order_id"));
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeliveredAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelivered")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal?>("ShippingPrice")
+                        .HasColumnType("decimal(7, 2)");
+
+                    b.Property<decimal?>("TaxPrice")
+                        .HasColumnType("decimal(7, 2)");
+
+                    b.Property<decimal?>("TotalPrice")
+                        .HasColumnType("decimal(7, 2)");
 
                     b.Property<int>("address_id")
                         .HasColumnType("int");
-
-                    b.Property<bool>("is_delivered")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("is_ordered")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("order_date")
                         .HasColumnType("datetime2");
@@ -121,15 +145,10 @@ namespace RxMed.Migrations
                     b.Property<DateTime?>("shipping_date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("total")
-                        .HasColumnType("int");
-
                     b.Property<int>("user_id")
                         .HasColumnType("int");
 
                     b.HasKey("order_id");
-
-                    b.HasIndex("address_id");
 
                     b.HasIndex("user_id");
 
@@ -143,6 +162,10 @@ namespace RxMed.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("order_details_id"));
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("med_id")
                         .HasColumnType("int");
@@ -260,8 +283,8 @@ namespace RxMed.Migrations
             modelBuilder.Entity("RxMed.Models.Order", b =>
                 {
                     b.HasOne("RxMed.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("address_id")
+                        .WithOne("Order")
+                        .HasForeignKey("RxMed.Models.Order", "order_id")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -323,6 +346,11 @@ namespace RxMed.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("RxMed.Models.Address", b =>
+                {
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("RxMed.Models.Medicine", b =>
