@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -78,7 +79,6 @@ namespace RxMed.Controllers
         //[Authorize]
 
         [HttpGet]
-        [Authorize]
         [Route("[action]")]
         public async Task<IActionResult> GetUserDetailsById(string _Id)
         {
@@ -89,8 +89,7 @@ namespace RxMed.Controllers
 
             if (user != null)
             {
-                if (user.role_id == 1)
-                {
+                
                     var ViewUser = _dbContext.Users.Where(x=>x.user_id == Id).Select(
                         v => new UserDTO()
                         {
@@ -109,11 +108,8 @@ namespace RxMed.Controllers
 
                     );
                     return Ok(ViewUser);
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                
+                
             }
             else
             {
@@ -121,6 +117,28 @@ namespace RxMed.Controllers
                
             }
 
+        }
+
+
+        [HttpPut]
+        [Authorize]
+        [Route("[action]")]
+        public async Task<IActionResult> UpdateUserProfile([FromBody] User user)
+        {
+
+            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var _user = _dbContext.Users.FirstOrDefault(u => u.email == userEmail);
+
+            
+                _user.first_name = user.first_name;
+                _user.last_name = user.last_name;
+                _user.username = user.username;
+                _user.email = user.email;
+                _user.password = user.password;
+
+                await _dbContext.SaveChangesAsync();
+                return Ok("Record updated successfully");
+           
         }
 
 
@@ -158,29 +176,30 @@ namespace RxMed.Controllers
 
         //Update
 
-        [HttpPut]
-        [Authorize]
-        [Route("[action]")]
-        public async Task<IActionResult> UpdateUser(string _uid,[FromBody] User user)
-        {
+        //[HttpPut]
+        //[Authorize]
+        //[Route("[action]")]
+        //public async Task<IActionResult> UpdateUser(string _uid,[FromBody] User user)
+        //{
 
-            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var _user = _dbContext.Users.FirstOrDefault(u => u.email == userEmail);
+        //    var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+        //    var _user = _dbContext.Users.FirstOrDefault(u => u.email == userEmail);
 
-            int uid = int.Parse(_uid);
-            var userExists = await _dbContext.Users.FindAsync(uid);
-            if (userExists != null)
-            {
-                userExists.first_name = user.first_name;
-                userExists.last_name = user.last_name;
-                userExists.email = user.email;
-                userExists.password = user.password;
+        //    int uid = int.Parse(_uid);
+        //    var userExists = await _dbContext.Users.FindAsync(uid);
+        //    if (userExists != null)
+        //    {
+        //        userExists.first_name = user.first_name;
+        //        userExists.last_name = user.last_name;
+        //        userExists.username = user.username;
+        //        userExists.email = user.email;
+        //        userExists.password = user.password;
 
-                await _dbContext.SaveChangesAsync();
-                return Ok("Record updated successfully");
-            }
-            else { return NotFound("User with that Id is not found"); }
-        }
+        //        await _dbContext.SaveChangesAsync();
+        //        return Ok("Record updated successfully");
+        //    }
+        //    else { return NotFound("User with that Id is not found"); }
+        //}
 
 
 

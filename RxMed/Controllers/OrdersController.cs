@@ -22,7 +22,6 @@ namespace RxMed.Controllers
         //Get customer orders by Id
 
         [HttpGet]
-        [Authorize]
         [Route("[action]")]
 
         public IActionResult GetCustOrderById(string _id)
@@ -70,7 +69,6 @@ namespace RxMed.Controllers
 
 
         [HttpPost]
-        [Authorize]
         [Route("[action]")]
         public IActionResult PlaceOrder()
         {
@@ -162,7 +160,6 @@ namespace RxMed.Controllers
 
 
         [HttpGet("my-orders")]
-        [Authorize]
         public IActionResult GetMyOrders()
         {
             var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
@@ -178,7 +175,6 @@ namespace RxMed.Controllers
         }
 
         [HttpGet("orders")]
-        [Authorize]
         public IActionResult GetOrders()
         {
             var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
@@ -200,7 +196,7 @@ namespace RxMed.Controllers
 
 
         [HttpGet("orders/{id}")]
-        [Authorize]
+
         public IActionResult GetOrderById(int id)
         {
             var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
@@ -233,7 +229,6 @@ namespace RxMed.Controllers
 
         [HttpPost("orders/{id}/pay")]
 
-        [Authorize]
         public IActionResult UpdateOrderToPaid(int id)
         {
             var order = _dbContext.Orders.Find(id);
@@ -256,7 +251,6 @@ namespace RxMed.Controllers
 
         [HttpPost("orders/{id}/deliver")]
 
-        [Authorize]
         public IActionResult UpdateOrderToDelivered(int id)
         {
             var order = _dbContext.Orders.Find(id);
