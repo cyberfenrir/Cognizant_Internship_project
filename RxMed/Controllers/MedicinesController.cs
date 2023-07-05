@@ -28,14 +28,11 @@ namespace RxMed.Controllers
         //GetMedData
 
         [HttpGet("GetAllMedData")]
-        [Authorize]
-        //[Authorize(Roles = "Admin")]
+        
         public IActionResult GetAllMedData()
         {
-            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var user = _dbContext.Users.FirstOrDefault(u => u.email == userEmail);
-            if (user.role_id == 1)
-            {
+            
+           
 
                 var MedDetails = _dbContext.Medicines.Select(
                     t => new MedicineDTO
@@ -66,61 +63,47 @@ namespace RxMed.Controllers
                     return Ok(MedDetails);
 
                 }
-            }
-            else
-            {
-
-                return BadRequest();
-
-            }
+         
+            
         }
 
 
         //getbyId
 
         [HttpGet]
-        [Authorize]
+      
         [Route("[action]")]
         public async Task<IActionResult> GetMedDetailsById(string _Id)
         {
-            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var user = _dbContext.Users.FirstOrDefault(u => u.email == userEmail);
+            
             int Id = int.Parse(_Id);
 
-            if (user != null)
+
+            var t = _dbContext.Medicines.FirstOrDefault(p => p.med_id == Id);
+
+            if (t == null)
             {
-                if (user.role_id == 1)
-                {
-                    var ViewMed = _dbContext.Medicines.Where(x => x.med_id == Id).Select(
-                        t => new MedicineDTO()
-                        {
-
-                            med_id = t.med_id,
-                            med_name = t.med_name,
-                            med_pharma = t.med_pharma,
-                            description = t.description,
-                            rx = t.rx,
-                            price = t.price,
-                            total_reviews = t.total_reviews,
-                            avg_reviews = t.avg_reviews,
-                            out_of_stock = t.out_of_stock,
-                            quantity = t.quantity,
-                            image_url = t.image_url
-                        }
-
-                    );
-                    return Ok(ViewMed);
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                return NotFound();
             }
-            else
+
+            var productDto = new MedicineDTO
             {
-                return NotFound("User not found");
+                med_id = t.med_id,
+                med_name = t.med_name,
+                med_pharma = t.med_pharma,
+                description = t.description,
+                rx = t.rx,
+                price = t.price,
+                total_reviews = t.total_reviews,
+                avg_reviews = t.avg_reviews,
+                out_of_stock = t.out_of_stock,
+                quantity = t.quantity,
+                image_url = t.image_url
+            };
 
-            }
+            return Ok(productDto);
+
+
 
         }
 

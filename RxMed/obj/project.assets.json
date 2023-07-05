@@ -10860,19 +10860,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\2270332\\.nuget\\packages\\": {}
+    "C:\\Users\\AAYUSH KUMAR\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\2270332\\OneDrive - Cognizant\\Desktop\\backend\\v4.0\\Cognizant_Internship_project\\RxMed\\RxMed.csproj",
+      "projectUniqueName": "C:\\Users\\AAYUSH KUMAR\\Desktop\\project\\Cognizant_Internship_project\\RxMed\\RxMed.csproj",
       "projectName": "RxMed",
-      "projectPath": "C:\\Users\\2270332\\OneDrive - Cognizant\\Desktop\\backend\\v4.0\\Cognizant_Internship_project\\RxMed\\RxMed.csproj",
-      "packagesPath": "C:\\Users\\2270332\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\2270332\\OneDrive - Cognizant\\Desktop\\backend\\v4.0\\Cognizant_Internship_project\\RxMed\\obj\\",
+      "projectPath": "C:\\Users\\AAYUSH KUMAR\\Desktop\\project\\Cognizant_Internship_project\\RxMed\\RxMed.csproj",
+      "packagesPath": "C:\\Users\\AAYUSH KUMAR\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\AAYUSH KUMAR\\Desktop\\project\\Cognizant_Internship_project\\RxMed\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\2270332\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\AAYUSH KUMAR\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10880,7 +10885,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -10953,7 +10958,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   },
